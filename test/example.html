@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Control example</title>
+    <style>
+
+        .control__error {
+            color: red;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="control js-name-control">
+        <label>
+            Your name:
+            <input class="control-input js-input" autofocus/>
+        </label>
+        <span class="control__error js-feedback-message js-feedback-message-text"></span>
+    </div>
+
+    <div class="control js-gender-control">
+        <label>
+            Your gender:
+            <div class="control-input js-input">
+                <label><input type="radio" name="gender" class="js-option" value="male"/> Male</label>
+                <label><input type="radio" name="gender" class="js-option" value="female"/> Female</label>
+            </div>
+        </label>
+        <span class="control__error js-feedback-message js-feedback-message-text"></span>
+    </div>
+
+    <script src="../build/build.js"></script>
+    <script>
+
+        //trim whitespace from front and back
+        var trim        = function(val) { return typeof val === 'string' ? val.replace(/^\s+/, '').replace(/\s+$/, '') : val; };
+        var required    = function(val) { return typeof val === 'string' && val.length > 0; };
+
+        var Control = require('control');
+
+        var nameControl = Control.create({
+            el:         document.querySelector('.js-name-control'),
+            name:       'name',
+            filters:    [trim],
+            validators: [[required, 'Your name is required so we can contact you.']]
+        });
+
+        var genderControl = Control.create({
+            el:         document.querySelector('.js-gender-control'),
+            name:       'gender',
+            type:       'option',
+            filters:    [trim],
+            validators: [[required, 'Your gender is required so you can claim things like pregnancy.']]
+        });
+
+        nameControl.on('validate', function(valid, value, control) {
+           console.log(control.getName()+': valid='+valid, 'value="'+value+'"');
+        });
+
+        genderControl.on('validate', function(valid, value, control) {
+            console.log(control.getName()+': valid='+valid, 'value="'+value+'"');
+        });
+
+    </script>
+</body>
+</html>

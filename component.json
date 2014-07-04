@@ -1,0 +1,19 @@
+{
+  "name": "control",
+  "scripts": [
+    "index.js",
+    "lib/TextInputView.js",
+    "lib/OptionInputView.js",
+    "lib/ControlView.js",
+    "lib/ControlPresenter.js"
+  ],
+  "dependencies": {
+    "component/emitter": "1.1.2",
+    "digitaledgeit/js-view": "0.1.4",
+    "nib-health-funds/view-mixins": "0.1.0",
+    "digitaledgeit/js-input-event": "0.1.1",
+    "digitaledgeit/js-filter-chain": "0.2.3",
+    "segmentio/validator": "0.0.13",
+    "digitaledgeit/js-transition-auto": "0.1.1"
+  }
+}
