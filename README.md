@@ -48,6 +48,14 @@ Create and wire up a new control.
 
 Get the control name.
 
+### ControlPresenter.getValue() : String
+
+Get the control value.
+
+### ControlPresenter.setValue(value : String)
+
+Set the control value.
+
 ### ControlPresenter.isValid() : Boolean
 
 Get the result of the last call to `validate()`. 
@@ -62,9 +70,13 @@ Filters the input value, validates the input value and updates the control view 
 
 ## Events
 
+### change
+
+Emitted after the input value has changed.
+
 ### validate
 
-Triggered after each call to `validate()`.
+Emitted after each call to `validate()`.
 
 #### Arguments
 
