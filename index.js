@@ -10,11 +10,14 @@ module.exports = {
 
   /**
    * Create a new control
-   * @param   {Object}      options             The options
-   * @param   {HTMLElement} options.el          The control element
-   * @param   {Object}      [options.model]     The control model
+   * @param   {Object} options
+   * @returns {exports.ControlPresenter}
    */
   create: function(options) {
+
+    if (typeof options.events !== 'undefined' && !Array.isArray(options.events)) {
+      options.events = [options.events];
+    }
 
     // === create the input view ===
 
@@ -50,21 +53,17 @@ module.exports = {
     // === create the control ===
 
     return new this.ControlPresenter({
-
-      name:         options.name,
-
-      events:       options.events,
-
-      inputView:    inputView,
-
-      controlView:  new this.ControlView({
+      name:           options.name,
+      model:          options.model,
+      modelProperty:  options.modelProperty,
+      events:         options.events || ['blur'],
+      inputView:      inputView,
+      controlView:    new this.ControlView({
         el: options.el
       }),
-
-      filterer:     new FilterChain(options.filters || []),
-
-      validator:    validatorChain
-
+      filterChain:    new FilterChain(options.filters || []),
+      validatorChain: validatorChain,
+      delay:          options.delay
     });
   }
 
