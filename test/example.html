@@ -39,6 +39,19 @@
         <span class="control__error js-feedback-message"></span>
     </div>
 
+    <div class="control js-colour-control">
+        <label>
+            Your favourite colour:
+            <select class="control__input js-input">
+                <option value="">Pick a colour...</option>
+                <option value="red">Red</option>
+                <option value="blue">Blue</option>
+                <option value="green">Green</option>
+            </select>
+        </label>
+        <span class="control__error js-feedback-message"></span>
+    </div>
+
     <script src="../build/build.js"></script>
     <script>
 
@@ -58,29 +71,47 @@
         var nameControl = Control.create({
             el:             document.querySelector('.js-name-control'),
             name:           'name',
-            model:          model,
-            modelProperty:  'name',
             filters:        [trim],
-            validators:     [[required, 'Your name is required so we can contact you.']]
+            validators:     [[required, 'Your name is required so we can contact you.']],
+            model:          model,
+            modelProperty:  'name'
         });
 
         var genderControl = Control.create({
             el:             document.querySelector('.js-gender-control'),
             type:           'option',
+            events:         ['blur', 'click'],
             name:           'gender',
-            model:          model,
-            modelProperty:  'gender',
             filters:        [trim],
-            validators:     [[required, 'Your gender is required so you can claim things like pregnancy.']]
+            validators:     [[required, 'Your gender is required so you can claim things like pregnancy.']],
+            model:          model,
+            modelProperty:  'gender'
         });
 
-        nameControl.on('validate', function(valid, value, control) {
-           console.log('Control name='+control.getName()+' valid='+valid, 'value="'+value+'"');
+        var colourControl = Control.create({
+            el:             document.querySelector('.js-colour-control'),
+            name:           'colour',
+            filters:        [trim],
+            validators:     [[required, 'Your favourite colour is required so we know more about you.']]
         });
 
-        genderControl.on('validate', function(valid, value, control) {
-            console.log('Control name='+control.getName()+' valid='+valid, 'value="'+value+'"');
-        });
+        nameControl
+            .on('validate', function(valid, value, control) {
+                console.log('Control name='+control.getName()+' valid='+valid, 'value="'+value+'"');
+            })
+            .inputView.on('change', function() {
+                console.log('Control name='+nameControl.getName()+' changed');
+            })
+        ;
+
+        genderControl
+            .on('validate', function(valid, value, control) {
+                console.log('Control name='+control.getName()+' valid='+valid, 'value="'+value+'"');
+            })
+            .inputView.on('change', function() {
+                console.log('Control name='+genderControl.getName()+' changed');
+            })
+        ;
 
     </script>
 </body>
