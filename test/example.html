@@ -96,20 +96,20 @@
         });
 
         nameControl
+            .on('change', function() {
+                console.log('Control name='+nameControl.getName()+' changed');
+            })
             .on('validate', function(valid, value, control) {
                 console.log('Control name='+control.getName()+' valid='+valid, 'value="'+value+'"');
-            })
-            .inputView.on('change', function() {
-                console.log('Control name='+nameControl.getName()+' changed');
             })
         ;
 
         genderControl
+            .on('change', function() {
+                console.log('Control name='+genderControl.getName()+' changed');
+            })
             .on('validate', function(valid, value, control) {
                 console.log('Control name='+control.getName()+' valid='+valid, 'value="'+value+'"');
-            })
-            .inputView.on('change', function() {
-                console.log('Control name='+genderControl.getName()+' changed');
             })
         ;
 
