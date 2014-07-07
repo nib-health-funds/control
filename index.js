@@ -26,6 +26,10 @@ module.exports = {
       inputEl = options.el.querySelector('.js-input')
     ;
 
+    if (inputEl === null) {
+      throw new Error('Input element not found within the control element of the control named "'+options.name+'".');
+    }
+
     if (options.type === 'option') {
 
       //create an option input
