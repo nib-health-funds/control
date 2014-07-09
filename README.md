@@ -60,6 +60,14 @@ Set the control value.
 
 Get the result of the last call to `validate()`. 
 
+### ControlPresenter.focus()
+
+Focus the input.
+
+### ControlPresenter.clear()
+
+Clear the value and validation state.
+
 ### ControlPresenter.validate()
 
 Filters the input value, validates the input value and updates the control view accordingly.
