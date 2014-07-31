@@ -12,8 +12,27 @@
         .control__input {
         }
 
-        .control__error {
-            color: red;
+        .control__container {
+            overflow: hidden;
+            transition: height 1s;
+            -webkit-transition: height 1s;
+        }
+
+        .control__container.is-error {
+            background-color: red;
+        }
+
+        .control__container.is-info {
+            background-color: blue;
+        }
+
+        .control__message {
+            color: #fff;
+        }
+
+        .control__container .control__message {
+            display: block;
+            padding: 10px;
         }
 
     </style>
@@ -25,7 +44,9 @@
             Your name:
             <input class="control__input js-input" autofocus/>
         </label>
-        <span class="control__error js-feedback-message"></span>
+        <div class="control__container js-feedback-container">
+            <span class="control__message js-feedback-message"></span>
+        </div>
     </div>
 
     <div class="control js-gender-control">
@@ -36,7 +57,7 @@
                 <label><input type="radio" name="gender" class="js-option" value="female"/> Female</label>
             </div>
         </label>
-        <span class="control__error js-feedback-message"></span>
+        <span class="control__message js-feedback-message"></span>
     </div>
 
     <div class="control js-colour-control">
@@ -49,7 +70,7 @@
                 <option value="green">Green</option>
             </select>
         </label>
-        <span class="control__error js-feedback-message"></span>
+        <span class="control__message js-feedback-message"></span>
     </div>
 
     <script src="../build/build.js"></script>
@@ -101,6 +122,13 @@
             })
             .on('validate', function(valid, value, control) {
                 console.log('Control name='+control.getName()+' valid='+valid, 'value="'+value+'"');
+
+                if (valid && value === 'abc') {
+                    setTimeout(function() {
+                        nameControl.controlView.setState('info').setMessage('info', 'Hey good looking, here\'s a discount.').showMessage();
+                    }, 1000);
+                }
+
             })
         ;
 

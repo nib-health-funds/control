@@ -14,6 +14,9 @@
     "digitaledgeit/js-input-event": "0.1.1",
     "digitaledgeit/js-filter-chain": "0.2.3",
     "segmentio/validator": "0.0.13",
-    "digitaledgeit/js-transition-auto": "0.1.1"
+    "digitaledgeit/js-transition-auto": "0.1.7"
+  },
+  "development": {
+    "component/assert": "*"
   }
 }
