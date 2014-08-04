@@ -75,6 +75,7 @@
 
     <script src="../build/build.js"></script>
     <script>
+        require('shims');
 
         //trim whitespace from front and back
         var trim        = function(val) { return typeof val === 'string' ? val.replace(/^\s+/, '').replace(/\s+$/, '') : val; };
