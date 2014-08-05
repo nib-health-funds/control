@@ -60,6 +60,23 @@
         <span class="control__message js-feedback-message"></span>
     </div>
 
+    <div class="control js-gender-control-with-manual-labels">
+        Your gender:
+        <div class="control__input js-input">
+            <div class="js-option-label" id="male-container">
+                <input type="radio" name="gender-manual" class="js-option" value="male"/>
+                <span>
+                    Male
+                </span>
+            </div>
+            <div class="js-option-label" id="female-container">
+                <input type="radio" name="gender-manual" class="js-option" value="female"/>
+                <span>Female</span>
+            </div>
+        </div>
+        <span class="control__message js-feedback-message"></span>
+    </div>
+
     <div class="control js-colour-control">
         <label>
             Your favourite colour:
@@ -110,6 +127,17 @@
             modelProperty:  'gender'
         });
 
+        var genderControlWithManualLabels = Control.create({
+            el:             document.querySelector('.js-gender-control-with-manual-labels'),
+            type:           'option',
+            events:         ['blur', 'click'],
+            name:           'gender-manual',
+            filters:        [trim],
+            validators:     [[required, 'Your gender is required so you can claim things like pregnancy.']],
+            model:          model,
+            modelProperty:  'gender'
+        });
+
         var colourControl = Control.create({
             el:             document.querySelector('.js-colour-control'),
             name:           'colour',
@@ -140,6 +168,18 @@
             .on('validate', function(valid, value, control) {
                 console.log('Control name='+control.getName()+' valid='+valid, 'value="'+value+'"');
             })
+        ;
+
+        genderControlWithManualLabels
+                .on('change', function() {
+                    console.log('Control name='+genderControlWithManualLabels.getName()+' changed');
+                })
+                .on('click', function() {
+                    console.log('Control name='+genderControlWithManualLabels.getName()+' clicked');
+                })
+                .on('validate', function(valid, value, control) {
+                    console.log('Control name='+control.getName()+' valid='+valid, 'value="'+value+'"');
+                })
         ;
 
     </script>
