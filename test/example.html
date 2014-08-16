@@ -98,22 +98,13 @@
         var trim        = function(val) { return typeof val === 'string' ? val.replace(/^\s+/, '').replace(/\s+$/, '') : val; };
         var required    = function(val) { return typeof val === 'string' && val.length > 0; };
 
-        //mock the model
-        var model       = {
-            set: function(name, value) {
-                console.log('Model: prop='+name+' value="'+value+'"');
-            }
-        };
-
         var Control = require('control');
 
         var nameControl = Control.create({
             el:             document.querySelector('.js-name-control'),
             name:           'name',
             filters:        [trim],
-            validators:     [[required, 'Your name is required so we can contact you.']],
-            model:          model,
-            modelProperty:  'name'
+            validators:     [[required, 'Your name is required so we can contact you.']]
         });
 
         var genderControl = Control.create({
@@ -122,9 +113,7 @@
             events:         ['blur', 'click'],
             name:           'gender',
             filters:        [trim],
-            validators:     [[required, 'Your gender is required so you can claim things like pregnancy.']],
-            model:          model,
-            modelProperty:  'gender'
+            validators:     [[required, 'Your gender is required so you can claim things like pregnancy.']]
         });
 
         var genderControlWithManualLabels = Control.create({
@@ -133,9 +122,7 @@
             events:         ['blur', 'click'],
             name:           'gender-manual',
             filters:        [trim],
-            validators:     [[required, 'Your gender is required so you can claim things like pregnancy.']],
-            model:          model,
-            modelProperty:  'gender'
+            validators:     [[required, 'Your gender is required so you can claim things like pregnancy.']]
         });
 
         var colourControl = Control.create({
@@ -171,15 +158,15 @@
         ;
 
         genderControlWithManualLabels
-                .on('change', function() {
-                    console.log('Control name='+genderControlWithManualLabels.getName()+' changed');
-                })
-                .on('click', function() {
-                    console.log('Control name='+genderControlWithManualLabels.getName()+' clicked');
-                })
-                .on('validate', function(valid, value, control) {
-                    console.log('Control name='+control.getName()+' valid='+valid, 'value="'+value+'"');
-                })
+            .on('change', function() {
+                console.log('Control name='+genderControlWithManualLabels.getName()+' changed');
+            })
+            .on('click', function() {
+                console.log('Control name='+genderControlWithManualLabels.getName()+' clicked');
+            })
+            .on('validate', function(valid, value, control) {
+                console.log('Control name='+control.getName()+' valid='+valid, 'value="'+value+'"');
+            })
         ;
 
     </script>
