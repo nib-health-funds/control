@@ -18,11 +18,11 @@
             -webkit-transition: height 1s;
         }
 
-        .control__container.is-error {
+        .control__container.is-error, .control__message.is-error {
             background-color: red;
         }
 
-        .control__container.is-info {
+        .control__container.is-info, .control__message.is-info  {
             background-color: blue;
         }
 
@@ -141,8 +141,8 @@
 
                 if (valid && value === 'abc') {
                     setTimeout(function() {
-                        nameControl.controlView.setState('info').setMessage('info', 'Hey good looking, here\'s a discount.').showMessage();
-                    }, 1000);
+                        nameControl.controlView.setMessage('info', 'Hey good looking, here\'s a discount.').showMessage();
+                    }, 2000);
                 }
 
             })
