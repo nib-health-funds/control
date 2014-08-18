@@ -24,20 +24,20 @@ describe('ControlView', function() {
 
   it('gets the state', function() {
 
-    assert.equal('', view.getState());
-    view.setState('invalid');
-    assert.equal('invalid', view.getState());
-    view.setState('valid');
-    assert.equal('valid', view.getState());
+    assert.equal(null, view.isValid());
+    view.setValid(false);
+    assert(!view.isValid());
+    view.setValid(true);
+    assert(view.isValid());
 
   });
 
   it('sets the state', function() {
 
     assert.equal('', view.el.className);
-    view.setState('invalid');
+    view.setValid(false);
     assert.equal('is-invalid', view.el.className);
-    view.setState('valid');
+    view.setValid(true);
     assert.equal('is-valid', view.el.className);
 
   });

@@ -53,12 +53,12 @@ describe('ControlPresenter', function() {
           return this;
         },
 
-        getState: function() {
-          return this.state;
+        isValid: function() {
+          return this.valid;
         },
 
-        setState: function(state) {
-          this.state = state;
+        setValid: function(valid) {
+          this.valid = valid;
           return this;
         },
 
@@ -66,6 +66,10 @@ describe('ControlPresenter', function() {
           this.messageType = '';
           this.messageText = '';
           return this;
+        },
+
+        getMessageType: function() {
+          return this.messageType;
         },
 
         setMessage: function(type, text) {
@@ -81,7 +85,7 @@ describe('ControlPresenter', function() {
 
   it('should hide the message when transitioning from invalid to valid', function(done) {
     presenter.validatorChain.valid    = true;
-    presenter.controlView.state       = 'invalid';
+    presenter.controlView.valid       = false;
 
     //check the state
     //this event handler will be registered before the presenter registers its own, hence the check won't work -- need event priorities?
@@ -106,7 +110,7 @@ describe('ControlPresenter', function() {
 
   it('should not hide the message when transitioning from valid to valid with a message set', function(done) {
     presenter.validatorChain.valid        = true;
-    presenter.controlView.state           = 'valid';
+    presenter.controlView.valid           = true;
     presenter.controlView.messageVisible  = true;
     presenter.controlView.messageType     = 'info';
     presenter.controlView.messageText     = 'Looks good bro!';
@@ -114,7 +118,7 @@ describe('ControlPresenter', function() {
     presenter.on('validate', function() {
 
       //check the state
-      assert.equal('valid', this.controlView.getState());
+      assert(this.controlView.isValid());
 
       //check the message visibility
       assert(this.controlView.messageVisible);
@@ -132,12 +136,12 @@ describe('ControlPresenter', function() {
   it('should show the message when transitioning from valid to invalid', function(done) {
     presenter.validatorChain.valid    = false;
     presenter.validatorChain.context  = 'Error!';
-    presenter.controlView.state       = 'valid';
+    presenter.controlView.valid       = true;
 
     presenter.on('validate', function() {
 
       //check the state
-      assert.equal('invalid', this.controlView.getState());
+      assert(!this.controlView.isValid());
 
       //check the message visibility
       assert(this.controlView.messageVisible);

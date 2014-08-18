@@ -134,10 +134,10 @@
 
         nameControl
             .on('change', function() {
-                console.log('Control name='+nameControl.getName()+' changed');
+                //console.log('Control name='+nameControl.getName()+' changed');
             })
             .on('validate', function(valid, value, control) {
-                console.log('Control name='+control.getName()+' valid='+valid, 'value="'+value+'"');
+                //console.log('Control name='+control.getName()+' valid='+valid, 'value="'+value+'"');
 
                 if (valid && value === 'abc') {
                     setTimeout(function() {
@@ -150,22 +150,22 @@
 
         genderControl
             .on('change', function() {
-                console.log('Control name='+genderControl.getName()+' changed');
+                //console.log('Control name='+genderControl.getName()+' changed');
             })
             .on('validate', function(valid, value, control) {
-                console.log('Control name='+control.getName()+' valid='+valid, 'value="'+value+'"');
+                //console.log('Control name='+control.getName()+' valid='+valid, 'value="'+value+'"');
             })
         ;
 
         genderControlWithManualLabels
             .on('change', function() {
-                console.log('Control name='+genderControlWithManualLabels.getName()+' changed');
+                //console.log('Control name='+genderControlWithManualLabels.getName()+' changed');
             })
             .on('click', function() {
-                console.log('Control name='+genderControlWithManualLabels.getName()+' clicked');
+                //console.log('Control name='+genderControlWithManualLabels.getName()+' clicked');
             })
             .on('validate', function(valid, value, control) {
-                console.log('Control name='+control.getName()+' valid='+valid, 'value="'+value+'"');
+                //console.log('Control name='+control.getName()+' valid='+valid, 'value="'+value+'"');
             })
         ;
 
