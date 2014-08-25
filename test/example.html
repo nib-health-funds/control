@@ -110,7 +110,7 @@
         var genderControl = Control.create({
             el:             document.querySelector('.js-gender-control'),
             type:           'option',
-            events:         ['blur', 'click'],
+            event:          ['blur', 'click'],
             name:           'gender',
             filters:        [trim],
             validators:     [[required, 'Your gender is required so you can claim things like pregnancy.']]
@@ -119,7 +119,7 @@
         var genderControlWithManualLabels = Control.create({
             el:             document.querySelector('.js-gender-control-with-manual-labels'),
             type:           'option',
-            events:         ['blur', 'click'],
+            event:          ['blur', 'click'],
             name:           'gender-manual',
             filters:        [trim],
             validators:     [[required, 'Your gender is required so you can claim things like pregnancy.']]
@@ -128,6 +128,7 @@
         var colourControl = Control.create({
             el:             document.querySelector('.js-colour-control'),
             name:           'colour',
+            event:          ['blur', 'click'],
             filters:        [trim],
             validators:     [[required, 'Your favourite colour is required so we know more about you.']]
         });

@@ -37,12 +37,9 @@ Create and wire up a new control.
  - `el` - The control element. Must contain a `.js-input` element and should probably also contain a `.js-feedback-message` element.
  - `type` - The type of the control. Used for creating an input view. Optional. Defaults to `text`.
  - `name` - The name of the control. Used for retrieving the control from a collection. e.g. `first-name`. Optional. 
- - `events` - The events emitted by the input view which should trigger validation. Optional. Defaults to `blur`.
+ - `event` - The event(s) emitted by the input view which should trigger validation. Optional. Defaults to `blur`.
  - `filters` - The filters. Optional. 
  - `validators` - The validators. Optional. 
- 
- - `model` - The model on which the valid data should be set. Optional.
- - `modelProperty` - The model property on which the valid data should be set. Optional.
 
 ### ControlPresenter.getName() : String
 
@@ -90,7 +87,6 @@ Emitted after each call to `validate()`.
 
 - `valid` - Whether the input is valid.
 - `value` - The filtered value.
-- `control` - The control.
 
 ## Advanced
 

@@ -60,7 +60,7 @@ module.exports = {
       name:           options.name,
       model:          options.model,
       modelProperty:  options.modelProperty,
-      events:         options.events || ['blur'],
+      event:          options.event || ['blur'],
       inputView:      inputView,
       controlView:    new this.ControlView({
         el: options.el
