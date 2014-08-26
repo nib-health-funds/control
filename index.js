@@ -5,7 +5,7 @@ module.exports = {
 
   ControlPresenter: require('./lib/ControlPresenter'),
   ControlView:      require('./lib/ControlView'),
-  TextInputView:    require('./lib/TextInputView'),
+  InputView:        require('./lib/InputView'),
   OptionInputView:  require('./lib/OptionInputView'),
 
   /**
@@ -40,7 +40,7 @@ module.exports = {
     } else {
 
       //create a text input
-      inputView = new this.TextInputView({
+      inputView = new this.InputView({
         el: inputEl
       });
 

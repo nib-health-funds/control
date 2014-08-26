@@ -2,7 +2,7 @@
   "name": "control",
   "scripts": [
     "index.js",
-    "lib/TextInputView.js",
+    "lib/InputView.js",
     "lib/OptionInputView.js",
     "lib/ControlView.js",
     "lib/ControlPresenter.js"
