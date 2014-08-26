@@ -128,7 +128,7 @@
         var colourControl = Control.create({
             el:             document.querySelector('.js-colour-control'),
             name:           'colour',
-            event:          ['blur', 'click'],
+            event:          ['blur', 'change'],
             filters:        [trim],
             validators:     [[required, 'Your favourite colour is required so we know more about you.']]
         });
