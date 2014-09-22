@@ -14,8 +14,10 @@
    */
   function createRadioGroupElement() {
     var group = document.createElement('div');
-    group.innerHTML = '<label><input type="radio" name="gender" class="js-option" value="male"/> Male</label>' +
-                      '<label><input type="radio" name="gender" class="js-option" value="female"/> Female</label>';
+    group.innerHTML =
+      '<label><input type="radio" name="gender" class="js-option" value="male"/> Male</label>' +
+      '<label><input type="radio" name="gender" class="js-option" value="female"/> Female</label>'
+    ;
     return group;
   }
 
@@ -73,6 +75,7 @@
         for(var i=0; i<view.options.length; ++i) {
           assert(view.options[i].disabled);
         }
+
       });
 
       it('should be false', function () {
@@ -84,9 +87,11 @@
       });
 
       it('should be true on an option', function () {
+
         for(var i=0; i<view.options.length; ++i) {
           view.options[i].disabled = true;
         }
+
         view.setDisabled('male', true);
 
         assert(view.options[0].disabled);
@@ -94,9 +99,11 @@
       });
 
       it('should be false on an option', function () {
+
         for(var i=0; i<view.options.length; ++i) {
           view.options[i].disabled = true;
         }
+
         view.setDisabled('male', false);
 
         assert(!view.options[0].disabled);
@@ -120,6 +127,46 @@
         done();
       });
       document.body.focus();
+    });
+
+    describe('.getValue()', function () {
+
+      it('should be empty', function () {
+        assert.equal('', view.getValue());
+      });
+
+      it('should be female', function () {
+        view.options[1].checked = true;
+        assert.equal('female', view.getValue());
+      });
+
+    });
+
+    describe('.setValue()', function () {
+
+      it('should be empty', function () {
+        view.setValue('');
+        assert(!view.options[0].checked);
+        console.log(view.options[1].checked);
+        assert(!view.options[1].checked);
+      });
+
+      it('should be female', function () {
+        view.setValue('female');
+        assert(!view.options[0].checked);
+        assert(view.options[1].checked);
+      });
+
+      it('should trigger change', function (done) {
+
+        view.on('change', function () {
+          done();
+        });
+
+        view.options[1].dispatchEvent(new MouseEvent('click'));
+
+      });
+
     });
 
   });
