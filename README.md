@@ -24,7 +24,7 @@ The JS:
         validators:     [[required, 'Your name is required so we can contact you.']]
     });
     
-See `test/example.html` for a working example.
+See `example/index.html` for a working example.
 
 ## Methods
 

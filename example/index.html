@@ -35,6 +35,9 @@
             padding: 10px;
         }
 
+        .js-option-label.is-disabled {
+            opacity: 0.5;
+        }
     </style>
 </head>
 <body>
@@ -55,6 +58,22 @@
             <div class="control__input js-input">
                 <label><input type="radio" name="gender" class="js-option" value="male"/> Male</label>
                 <label><input type="radio" name="gender" class="js-option" value="female"/> Female</label>
+            </div>
+        </label>
+        <span class="control__message js-feedback-message"></span>
+    </div>
+
+    <div>
+        <a href="#" class="js-disabler">Disable all Males</a>
+        <a href="#" class="js-enabler">Enable all Males</a>
+    </div>
+
+    <div class="control js-gender-control-with-disabled-labels">
+        <label>
+            Your gender:
+            <div class="control__input js-input">
+                <label class="js-option-label"><input type="radio" name="gender" class="js-option" value="male"/> Male</label>
+                <label class="js-option-label"><input type="radio" name="gender" class="js-option" value="female"/> Female</label>
             </div>
         </label>
         <span class="control__message js-feedback-message"></span>
@@ -116,6 +135,15 @@
             validators:     [[required, 'Your gender is required so you can claim things like pregnancy.']]
         });
 
+        var genderControlWithDisabledLabels = Control.create({
+            el:             document.querySelector('.js-gender-control-with-disabled-labels'),
+            type:           'option',
+            event:          ['blur', 'click'],
+            name:           'gender',
+            filters:        [trim],
+            validators:     [[required, 'Your gender is required so you can claim things like pregnancy.']]
+        });
+
         var genderControlWithManualLabels = Control.create({
             el:             document.querySelector('.js-gender-control-with-manual-labels'),
             type:           'option',
@@ -158,6 +186,15 @@
             })
         ;
 
+        genderControlWithDisabledLabels
+                .on('change', function() {
+                    //console.log('Control name='+genderControl.getName()+' changed');
+                })
+                .on('validate', function(valid, value, control) {
+                    //console.log('Control name='+control.getName()+' valid='+valid, 'value="'+value+'"');
+                })
+        ;
+
         genderControlWithManualLabels
             .on('change', function() {
                 //console.log('Control name='+genderControlWithManualLabels.getName()+' changed');
@@ -169,6 +206,22 @@
                 //console.log('Control name='+control.getName()+' valid='+valid, 'value="'+value+'"');
             })
         ;
+
+        var disabler = document.querySelector('.js-disabler');
+        if (disabler) {
+            disabler.onclick = function () {
+                genderControlWithDisabledLabels.inputView.setDisabled('male', true);
+                genderControlWithManualLabels.inputView.setDisabled('male', true);
+            };
+        }
+
+        var enabler = document.querySelector('.js-enabler');
+        if (enabler) {
+            enabler.onclick = function () {
+                genderControlWithDisabledLabels.inputView.setDisabled('male', false);
+                genderControlWithManualLabels.inputView.setDisabled('male', false);
+            };
+        }
 
     </script>
 </body>
