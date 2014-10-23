@@ -31,6 +31,8 @@
       assert(!view.isValid());
       view.setValid(true);
       assert(view.isValid());
+      view.setValid(null);
+      assert.equal(null, view.isValid());
 
     });
 
@@ -41,6 +43,9 @@
       assert.equal('is-invalid', view.el.className);
       view.setValid(true);
       assert.equal('is-valid', view.el.className);
+      view.setValid(null);
+      assert(!view.el.classList.contains('is-valid'));
+      assert(!view.el.classList.contains('is-invalid'));
 
     });
 
