@@ -15,8 +15,8 @@
   function createRadioGroupElement() {
     var group = document.createElement('div');
     group.innerHTML =
-      '<label><input type="radio" name="gender" class="js-option" value="male"/> Male</label>' +
-      '<label><input type="radio" name="gender" class="js-option" value="female"/> Female</label>'
+      '<label class="js-option-label"><input type="radio" name="gender" class="js-option" value="male"/> Male</label>' +
+      '<label class="js-option-label"><input type="radio" name="gender" class="js-option" value="female"/> Female</label>'
     ;
     return group;
   }
@@ -89,25 +89,30 @@
       it('should be true on an option', function () {
 
         for(var i=0; i<view.options.length; ++i) {
-          view.options[i].disabled = true;
+          view.options[i].disabled = false;
         }
 
         view.setDisabled('male', true);
 
         assert(view.options[0].disabled);
-        assert(view.options[0].disabled);
+        assert(view.labels[0].classList.contains('is-disabled'))
+        assert(!view.options[1].disabled);
+        assert(!view.labels[1].classList.contains('is-disabled'))
       });
 
       it('should be false on an option', function () {
 
         for(var i=0; i<view.options.length; ++i) {
           view.options[i].disabled = true;
+          view.labels[i].classList.add('is-disabled');
         }
 
         view.setDisabled('male', false);
 
         assert(!view.options[0].disabled);
+        assert(!view.labels[0].classList.contains('is-disabled'));
         assert(view.options[1].disabled);
+        assert(view.labels[1].classList.contains('is-disabled'));
       });
 
     });
