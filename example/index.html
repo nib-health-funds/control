@@ -62,29 +62,16 @@
     </div>
 
     <div class="control js-gender-control">
-        <label>
-            Your gender:
-            <div class="control__input js-input">
-                <label class="js-option-label"><input type="radio" name="gender1" class="js-option-input" value="male"/> Male</label>
-                <label class="js-option-label"><input type="radio" name="gender1" class="js-option-input" value="female"/> Female</label>
-            </div>
-        </label>
-        <span class="control__message js-feedback-message"></span>
-    </div>
-
-    <div class="control js-gender-control-with-disabled-labels">
-        <label>
-            Your gender:
-            <div class="control__input js-input">
-                <label class="js-option-label"><input type="radio" name="gender2" class="js-option-input" value="male"/> Male</label>
-                <label class="js-option-label"><input type="radio" name="gender2" class="js-option-input" value="female"/> Female</label>
-            </div>
-        </label>
+        Your gender:
+        <div class="control__input js-input">
+            <label class="js-option-label"><input type="radio" name="gender1" class="js-option-input" value="male"/> Male</label>
+            <label class="js-option-label"><input type="radio" name="gender1" class="js-option-input" value="female"/> Female</label>
+        </div>
         <span class="control__message js-feedback-message"></span>
     </div>
 
     <div class="control js-gender-control-with-manual-labels">
-        Your gender:
+        Your gender (manual labels):
         <div class="control__input js-input">
             <div class="js-option-label">
                 <input type="radio" name="gender-manual" class="js-option-input" value="male"/>
@@ -113,16 +100,30 @@
         <span class="control__message js-feedback-message"></span>
     </div>
 
+    <div class="control js-agree-to-terms-control">
+        Agree to terms:
+        <div class="control__input js-input">
+            <label class="js-option-label"><input type="checkbox" name="agree-to-terms" class="js-option-input" value="True"/> Accept the terms</label>
+        </div>
+        <span class="control__message js-feedback-message"></span>
+    </div>
+
+    <div class="control js-agree-to-terms-with-manual-labels-control">
+        Agree to terms (manual labels):
+        <div class="control__input js-input">
+            <div class="js-option-label"><input type="checkbox" name="agree-to-terms" class="js-option-input" value="True"/> Accept the terms</div>
+        </div>
+        <span class="control__message js-feedback-message"></span>
+    </div>
+
     <div class="control js-colour-checkbox-control">
-        <label>
-            Your favourite colours:
-            <div class="control__input js-input">
-                <label class="js-option-label"><input type="checkbox" name="colour" class="js-option-input" value="blue"/> Blue</label>
-                <label class="js-option-label"><input type="checkbox" name="colour" class="js-option-input" value="green"/> Green</label>
-                <label class="js-option-label"><input type="checkbox" name="colour" class="js-option-input" value="red"/> Red</label>
-                <label class="js-option-label"><input type="checkbox" name="colour" class="js-option-input" value="yellow"/> Yellow</label>
-            </div>
-        </label>
+        Your favourite colours:
+        <div class="control__input js-input">
+            <label class="js-option-label"><input type="checkbox" name="colour" class="js-option-input" value="blue"/> Blue</label>
+            <label class="js-option-label"><input type="checkbox" name="colour" class="js-option-input" value="green"/> Green</label>
+            <label class="js-option-label"><input type="checkbox" name="colour" class="js-option-input" value="red"/> Red</label>
+            <label class="js-option-label"><input type="checkbox" name="colour" class="js-option-input" value="yellow"/> Yellow</label>
+        </div>
         <span class="control__message js-feedback-message"></span>
     </div>
 
@@ -157,15 +158,6 @@
             validators:     [[required, 'Your gender is required so you can claim things like pregnancy.']]
         });
 
-        var genderControlWithDisabledLabels = Control.create({
-            el:             document.querySelector('.js-gender-control-with-disabled-labels'),
-            type:           'option',
-            event:          ['blur', 'change'],
-            name:           'gender',
-            filters:        [trim],
-            validators:     [[required, 'Your gender is required so you can claim things like pregnancy.']]
-        });
-
         var genderControlWithManualLabels = Control.create({
             el:             document.querySelector('.js-gender-control-with-manual-labels'),
             type:           'option',
@@ -183,15 +175,31 @@
             validators:     [[required, 'Your favourite colour is required so we know more about you.']]
         });
 
+        var agreeToTerms = Control.create({
+            el:             document.querySelector('.js-agree-to-terms-control'),
+            type:           'option',
+            event:          ['blur', 'change'],
+            name:           'agree-to-terms',
+            validators:     [[required, 'You must accept the terms.']]
+        });
+
+        var agreeToTermsManual = Control.create({
+            el:             document.querySelector('.js-agree-to-terms-with-manual-labels-control'),
+            type:           'option',
+            event:          ['blur', 'change'],
+            name:           'agree-to-terms',
+            validators:     [[required, 'You must accept the terms.']]
+        });
+
         var colourCheckboxControl = Control.create({
             el:             document.querySelector('.js-colour-checkbox-control'),
             name:           'colour',
-            type:           'multi-select',
+            type:           'multi-option',
             event:          ['blur', 'change'],
             filters:        [trim],
             validators:     [[required, 'Your favourite colour is required so we know more about you.']]
         });
-        //colourCheckboxControl.setValue(['green', 'red']);
+        colourCheckboxControl.setValue(['green', 'red']);
 
         nameControl
             .on('change', function() {
@@ -218,15 +226,6 @@
             })
         ;
 
-        genderControlWithDisabledLabels
-                .on('change', function() {
-                    //console.log('Control name='+genderControl.getName()+' changed');
-                })
-                .on('validate', function(valid, value, control) {
-                    //console.log('Control name='+control.getName()+' valid='+valid, 'value="'+value+'"');
-                })
-        ;
-
         genderControlWithManualLabels
             .on('change', function() {
                 //console.log('Control name='+genderControlWithManualLabels.getName()+' changed');
@@ -243,7 +242,6 @@
         if (disabler) {
             disabler.onclick = function () {
                 genderControl.inputView.setDisabled('male', true);
-                genderControlWithDisabledLabels.inputView.setDisabled('male', true);
                 genderControlWithManualLabels.inputView.setDisabled('male', true);
             };
         }
@@ -252,7 +250,6 @@
         if (enabler) {
             enabler.onclick = function () {
                 genderControl.inputView.setDisabled('male', false);
-                genderControlWithDisabledLabels.inputView.setDisabled('male', false);
                 genderControlWithManualLabels.inputView.setDisabled('male', false);
             };
         }

@@ -7,7 +7,7 @@ module.exports = {
   ControlView:          require('./lib/ControlView'),
   InputView:            require('./lib/InputView'),
   OptionInputView:      require('./lib/OptionInputView'),
-  MultiSelectInputView: require('./lib/MultiSelectInputView'),
+  MultiOptionInputView: require('./lib/MultiOptionInputView'),
 
   /**
    * Create a new control
@@ -33,15 +33,14 @@ module.exports = {
 
     switch (options.type) {
 
-      case 'select':
       case 'option':
         inputView = new this.OptionInputView({
           el: inputEl
         });
         break;
 
-      case 'multi-select':
-        inputView = new this.MultiSelectInputView({
+      case 'multi-option':
+        inputView = new this.MultiOptionInputView({
           el: inputEl
         });
         break;

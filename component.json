@@ -4,7 +4,7 @@
     "index.js",
     "lib/InputView.js",
     "lib/OptionInputView.js",
-    "lib/MultiSelectInputView.js",
+    "lib/MultiOptionInputView.js",
     "lib/ControlView.js",
     "lib/ControlPresenter.js"
   ],
