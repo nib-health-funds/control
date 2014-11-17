@@ -15,8 +15,8 @@
   function createRadioGroupElement() {
     var group = document.createElement('div');
     group.innerHTML =
-      '<label class="js-option-label"><input type="radio" name="gender" class="js-option" value="male"/> Male</label>' +
-      '<label class="js-option-label"><input type="radio" name="gender" class="js-option" value="female"/> Female</label>'
+      '<label class="js-option-label"><input type="radio" name="gender" class="js-option-input" value="male"/> Male</label>' +
+      '<label class="js-option-label"><input type="radio" name="gender" class="js-option-input" value="female"/> Female</label>'
     ;
     return group;
   }
@@ -45,8 +45,8 @@
 
       it('should be true', function () {
 
-        for(var i=0; i<view.options.length; ++i) {
-          view.options[i].disabled = true;
+        for(var i=0; i<view.inputs.length; ++i) {
+          view.inputs[i].disabled = true;
         }
 
         assert(view.isDisabled());
@@ -57,12 +57,12 @@
       });
 
       it('should be true on an option', function () {
-        view.options[0].disabled = true;
+        view.inputs[0].disabled = true;
         assert(view.isDisabled('male'));
       });
 
       it('should be false on an option', function () {
-        view.options[0].disabled = false;
+        view.inputs[0].disabled = false;
         assert(!view.isDisabled('male'));
       });
     });
@@ -72,8 +72,8 @@
       it('should be true', function () {
         view.setDisabled(true);
 
-        for(var i=0; i<view.options.length; ++i) {
-          assert(view.options[i].disabled);
+        for(var i=0; i<view.inputs.length; ++i) {
+          assert(view.inputs[i].disabled);
         }
 
       });
@@ -81,37 +81,37 @@
       it('should be false', function () {
         view.setDisabled(false);
 
-        for(var i=0; i<view.options.length; ++i) {
-          assert(!view.options[i].disabled);
+        for(var i=0; i<view.inputs.length; ++i) {
+          assert(!view.inputs[i].disabled);
         }
       });
 
       it('should be true on an option', function () {
 
-        for(var i=0; i<view.options.length; ++i) {
-          view.options[i].disabled = false;
+        for(var i=0; i<view.inputs.length; ++i) {
+          view.inputs[i].disabled = false;
         }
 
         view.setDisabled('male', true);
 
-        assert(view.options[0].disabled);
+        assert(view.inputs[0].disabled);
         assert(view.labels[0].classList.contains('is-disabled'))
-        assert(!view.options[1].disabled);
+        assert(!view.inputs[1].disabled);
         assert(!view.labels[1].classList.contains('is-disabled'))
       });
 
       it('should be false on an option', function () {
 
-        for(var i=0; i<view.options.length; ++i) {
-          view.options[i].disabled = true;
+        for(var i=0; i<view.inputs.length; ++i) {
+          view.inputs[i].disabled = true;
           view.labels[i].classList.add('is-disabled');
         }
 
         view.setDisabled('male', false);
 
-        assert(!view.options[0].disabled);
+        assert(!view.inputs[0].disabled);
         assert(!view.labels[0].classList.contains('is-disabled'));
-        assert(view.options[1].disabled);
+        assert(view.inputs[1].disabled);
         assert(view.labels[1].classList.contains('is-disabled'));
       });
 
@@ -120,9 +120,9 @@
     describe('.focus()', function () {
 
       it('should have focus', function () {
-        assert(view.options[0] !== document.activeElement);
+        assert(view.inputs[0] !== document.activeElement);
         view.focus();
-        assert(view.options[0] === document.activeElement);
+        assert(view.inputs[0] === document.activeElement);
       });
 
     });
@@ -141,7 +141,7 @@
       });
 
       it('should be female', function () {
-        view.options[1].checked = true;
+        view.inputs[1].checked = true;
         assert.equal('female', view.getValue());
       });
 
@@ -151,15 +151,14 @@
 
       it('should be empty', function () {
         view.setValue('');
-        assert(!view.options[0].checked);
-        console.log(view.options[1].checked);
-        assert(!view.options[1].checked);
+        assert(!view.inputs[0].checked);
+        assert(!view.inputs[1].checked);
       });
 
       it('should be female', function () {
         view.setValue('female');
-        assert(!view.options[0].checked);
-        assert(view.options[1].checked);
+        assert(!view.inputs[0].checked);
+        assert(view.inputs[1].checked);
       });
 
       it('should trigger change', function (done) {
@@ -168,7 +167,7 @@
           done();
         });
 
-        view.options[1].dispatchEvent(new MouseEvent('click'));
+        view.inputs[1].click();
 
       });
 

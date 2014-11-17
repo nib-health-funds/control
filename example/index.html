@@ -35,9 +35,18 @@
             padding: 10px;
         }
 
+        .js-option-label {
+            border: 1px solid red;
+        }
+
+        .js-option-label.is-selected {
+            background-color: lightskyblue;
+        }
+
         .js-option-label.is-disabled {
             opacity: 0.5;
         }
+
     </style>
 </head>
 <body>
@@ -56,24 +65,19 @@
         <label>
             Your gender:
             <div class="control__input js-input">
-                <label><input type="radio" name="gender" class="js-option" value="male"/> Male</label>
-                <label><input type="radio" name="gender" class="js-option" value="female"/> Female</label>
+                <label class="js-option-label"><input type="radio" name="gender1" class="js-option-input" value="male"/> Male</label>
+                <label class="js-option-label"><input type="radio" name="gender1" class="js-option-input" value="female"/> Female</label>
             </div>
         </label>
         <span class="control__message js-feedback-message"></span>
-    </div>
-
-    <div>
-        <a href="#" class="js-disabler">Disable all Males</a>
-        <a href="#" class="js-enabler">Enable all Males</a>
     </div>
 
     <div class="control js-gender-control-with-disabled-labels">
         <label>
             Your gender:
             <div class="control__input js-input">
-                <label class="js-option-label"><input type="radio" name="gender" class="js-option" value="male"/> Male</label>
-                <label class="js-option-label"><input type="radio" name="gender" class="js-option" value="female"/> Female</label>
+                <label class="js-option-label"><input type="radio" name="gender2" class="js-option-input" value="male"/> Male</label>
+                <label class="js-option-label"><input type="radio" name="gender2" class="js-option-input" value="female"/> Female</label>
             </div>
         </label>
         <span class="control__message js-feedback-message"></span>
@@ -82,14 +86,14 @@
     <div class="control js-gender-control-with-manual-labels">
         Your gender:
         <div class="control__input js-input">
-            <div class="js-option-label" id="male-container">
-                <input type="radio" name="gender-manual" class="js-option" value="male"/>
+            <div class="js-option-label">
+                <input type="radio" name="gender-manual" class="js-option-input" value="male"/>
                 <span>
                     Male
                 </span>
             </div>
-            <div class="js-option-label" id="female-container">
-                <input type="radio" name="gender-manual" class="js-option" value="female"/>
+            <div class="js-option-label">
+                <input type="radio" name="gender-manual" class="js-option-input" value="female"/>
                 <span>Female</span>
             </div>
         </div>
@@ -109,13 +113,31 @@
         <span class="control__message js-feedback-message"></span>
     </div>
 
+    <div class="control js-colour-checkbox-control">
+        <label>
+            Your favourite colours:
+            <div class="control__input js-input">
+                <label class="js-option-label"><input type="checkbox" name="colour" class="js-option-input" value="blue"/> Blue</label>
+                <label class="js-option-label"><input type="checkbox" name="colour" class="js-option-input" value="green"/> Green</label>
+                <label class="js-option-label"><input type="checkbox" name="colour" class="js-option-input" value="red"/> Red</label>
+                <label class="js-option-label"><input type="checkbox" name="colour" class="js-option-input" value="yellow"/> Yellow</label>
+            </div>
+        </label>
+        <span class="control__message js-feedback-message"></span>
+    </div>
+
+    <div>
+        <a href="#" class="js-disabler">Disable all Males</a>
+        <a href="#" class="js-enabler">Enable all Males</a>
+    </div>
+
     <script src="../build/build.js"></script>
     <script>
         require('shims');
 
         //trim whitespace from front and back
         var trim        = function(val) { return typeof val === 'string' ? val.replace(/^\s+/, '').replace(/\s+$/, '') : val; };
-        var required    = function(val) { return typeof val === 'string' && val.length > 0; };
+        var required    = function(val) { return (typeof val === 'string' || val instanceof Array) && val.length > 0; };
 
         var Control = require('control');
 
@@ -129,7 +151,7 @@
         var genderControl = Control.create({
             el:             document.querySelector('.js-gender-control'),
             type:           'option',
-            event:          ['blur', 'click'],
+            event:          ['blur', 'change'],
             name:           'gender',
             filters:        [trim],
             validators:     [[required, 'Your gender is required so you can claim things like pregnancy.']]
@@ -138,7 +160,7 @@
         var genderControlWithDisabledLabels = Control.create({
             el:             document.querySelector('.js-gender-control-with-disabled-labels'),
             type:           'option',
-            event:          ['blur', 'click'],
+            event:          ['blur', 'change'],
             name:           'gender',
             filters:        [trim],
             validators:     [[required, 'Your gender is required so you can claim things like pregnancy.']]
@@ -147,7 +169,7 @@
         var genderControlWithManualLabels = Control.create({
             el:             document.querySelector('.js-gender-control-with-manual-labels'),
             type:           'option',
-            event:          ['blur', 'click'],
+            event:          ['blur', 'change'],
             name:           'gender-manual',
             filters:        [trim],
             validators:     [[required, 'Your gender is required so you can claim things like pregnancy.']]
@@ -160,6 +182,16 @@
             filters:        [trim],
             validators:     [[required, 'Your favourite colour is required so we know more about you.']]
         });
+
+        var colourCheckboxControl = Control.create({
+            el:             document.querySelector('.js-colour-checkbox-control'),
+            name:           'colour',
+            type:           'multi-select',
+            event:          ['blur', 'change'],
+            filters:        [trim],
+            validators:     [[required, 'Your favourite colour is required so we know more about you.']]
+        });
+        //colourCheckboxControl.setValue(['green', 'red']);
 
         nameControl
             .on('change', function() {
@@ -210,6 +242,7 @@
         var disabler = document.querySelector('.js-disabler');
         if (disabler) {
             disabler.onclick = function () {
+                genderControl.inputView.setDisabled('male', true);
                 genderControlWithDisabledLabels.inputView.setDisabled('male', true);
                 genderControlWithManualLabels.inputView.setDisabled('male', true);
             };
@@ -218,6 +251,7 @@
         var enabler = document.querySelector('.js-enabler');
         if (enabler) {
             enabler.onclick = function () {
+                genderControl.inputView.setDisabled('male', false);
                 genderControlWithDisabledLabels.inputView.setDisabled('male', false);
                 genderControlWithManualLabels.inputView.setDisabled('male', false);
             };

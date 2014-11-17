@@ -3,10 +3,11 @@ var ValidatorChain  = require('validator');
 
 module.exports = {
 
-  ControlPresenter: require('./lib/ControlPresenter'),
-  ControlView:      require('./lib/ControlView'),
-  InputView:        require('./lib/InputView'),
-  OptionInputView:  require('./lib/OptionInputView'),
+  ControlPresenter:     require('./lib/ControlPresenter'),
+  ControlView:          require('./lib/ControlView'),
+  InputView:            require('./lib/InputView'),
+  OptionInputView:      require('./lib/OptionInputView'),
+  MultiSelectInputView: require('./lib/MultiSelectInputView'),
 
   /**
    * Create a new control
@@ -30,19 +31,25 @@ module.exports = {
       //throw new Error('Input element not found within the control element of the control named "'+options.name+'".');
     }
 
-    if (options.type === 'option') {
+    switch (options.type) {
 
-      //create an option input
-      inputView = new this.OptionInputView({
-        el: inputEl
-      });
+      case 'select':
+      case 'option':
+        inputView = new this.OptionInputView({
+          el: inputEl
+        });
+        break;
 
-    } else {
+      case 'multi-select':
+        inputView = new this.MultiSelectInputView({
+          el: inputEl
+        });
+        break;
 
-      //create a text input
-      inputView = new this.InputView({
-        el: inputEl
-      });
+      default:
+        inputView = new this.InputView({
+          el: inputEl
+        });
 
     }
 
@@ -58,9 +65,7 @@ module.exports = {
 
     return new this.ControlPresenter({
       name:           options.name,
-      model:          options.model,
-      modelProperty:  options.modelProperty,
-      event:          options.event || ['blur'],
+      event:          typeof(options.event) === 'undefined' ? ['blur'] : options.event,
       inputView:      inputView,
       controlView:    new this.ControlView({
         el: options.el
