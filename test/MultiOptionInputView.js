@@ -1,7 +1,7 @@
 (function() {
 
   var assert    = require('assert');
-  var InputView = require('control/lib/MultiSelectInputView.js');
+  var InputView = require('control/lib/MultiOptionInputView.js');
 
   var view;
 

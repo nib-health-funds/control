@@ -142,6 +142,10 @@
 
         var Control = require('control');
 
+        Control.plugin(function(control) {
+            console.log('Plugin running on "'+control.getName()+'"');
+        });
+
         var nameControl = Control.create({
             el:             document.querySelector('.js-name-control'),
             name:           'name',

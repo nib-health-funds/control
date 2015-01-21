@@ -6,7 +6,8 @@
     "lib/OptionInputView.js",
     "lib/MultiOptionInputView.js",
     "lib/ControlView.js",
-    "lib/ControlPresenter.js"
+    "lib/ControlPresenter.js",
+    "lib/ControlFactory.js"
   ],
   "dependencies": {
     "component/emitter": "1.1.3",
