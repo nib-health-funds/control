@@ -206,11 +206,14 @@
         colourCheckboxControl.setValue(['green', 'red']);
 
         nameControl
+            .on('blur', function() {
+                console.log('Control name='+this.getName()+' blurred');
+            })
             .on('change', function() {
                 //console.log('Control name='+nameControl.getName()+' changed');
             })
             .on('validate', function(valid, value, control) {
-                //console.log('Control name='+control.getName()+' valid='+valid, 'value="'+value+'"');
+                console.log('Control name='+this.getName()+' valid='+valid, 'value="'+value+'" validated');
 
                 if (valid && value === 'abc') {
                     setTimeout(function() {
@@ -222,15 +225,21 @@
         ;
 
         genderControl
+            .on('blur', function() {
+                console.log('Control name='+this.getName()+' blurred');
+            })
             .on('change', function() {
                 //console.log('Control name='+genderControl.getName()+' changed');
             })
             .on('validate', function(valid, value, control) {
-                //console.log('Control name='+control.getName()+' valid='+valid, 'value="'+value+'"');
+                console.log('Control name='+this.getName()+' valid='+valid, 'value="'+value+'" validated');
             })
         ;
 
         genderControlWithManualLabels
+            .on('blur', function() {
+                console.log('Control name='+this.getName()+' blurred');
+            })
             .on('change', function() {
                 //console.log('Control name='+genderControlWithManualLabels.getName()+' changed');
             })
@@ -238,7 +247,22 @@
                 //console.log('Control name='+genderControlWithManualLabels.getName()+' clicked');
             })
             .on('validate', function(valid, value, control) {
-                //console.log('Control name='+control.getName()+' valid='+valid, 'value="'+value+'"');
+                console.log('Control name='+this.getName()+' valid='+valid, 'value="'+value+'" validated');
+            })
+        ;
+
+        colourControl
+            .on('blur', function() {
+                console.log('Control name='+this.getName()+' blurred');
+            })
+            .on('change', function() {
+                //console.log('Control name='+genderControlWithManualLabels.getName()+' changed');
+            })
+            .on('click', function() {
+                //console.log('Control name='+genderControlWithManualLabels.getName()+' clicked');
+            })
+            .on('validate', function(valid, value, control) {
+                console.log('Control name='+this.getName()+' valid='+valid, 'value="'+value+'" validated');
             })
         ;
 
