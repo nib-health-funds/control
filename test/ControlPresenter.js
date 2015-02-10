@@ -12,6 +12,7 @@ describe('ControlPresenter', function() {
 
       inputView: {
         on: function () {
+          return this;
         },
         getValue: function() {
           return 'crapola';
