@@ -115,6 +115,7 @@
         //click an input
         inputs[1].focus();
         inputs[1].blur();
+
       });
 
       it('should fire change event and be "selected"', function(done) {
