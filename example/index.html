@@ -136,6 +136,8 @@
     <script>
         require('shims');
 
+        var optional = false;
+
         //trim whitespace from front and back
         var trim        = function(val) { return typeof val === 'string' ? val.replace(/^\s+/, '').replace(/\s+$/, '') : val; };
         var required    = function(val) { return (typeof val === 'string' || val instanceof Array) && val.length > 0; };

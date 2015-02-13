@@ -15,7 +15,7 @@
     "nib-health-funds/view-mixins": "~0.1.0",
     "digitaledgeit/js-input-event": "~0.1.1",
     "digitaledgeit/js-filter-chain": "~0.2.3",
-    "digitaledgeit/js-validator-chain": "~0.1.0",
+    "digitaledgeit/js-validator-chain": "~0.2.0",
     "digitaledgeit/js-transition-auto": "~0.1.10"
   },
   "development": {
