@@ -1,5 +1,5 @@
 var assert           = require('assert');
-var ControlPresenter = require('control/lib/ControlPresenter.js');
+var ControlPresenter = require('../lib/ControlPresenter.js');
 
 var presenter;
 
